@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>諫逐客書｜課文心智圖</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans+Mono:wght@400;500&display=swap');
+
+  :root{
+    --paper: #EFE6D3;
+    --paper-deep: #E4D8BE;
+    --ink: #2A2620;
+    --ink-soft: #55503f;
+    --seal: #A63A2F;
+    --bamboo: #5F7052;
+    --gold: #A9803F;
+    --rule: rgba(42,38,32,0.18);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(169,128,63,0.08), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(95,112,82,0.07), transparent 55%);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap{ max-width: 920px; margin: 0 auto; padding: 48px 24px 90px; }
+
+  .hero{
+    position: relative;
+    padding: 36px 8px 30px;
+    border-bottom: 3px double var(--ink);
+    margin-bottom: 30px;
+  }
+  .hero-eyebrow{
+    font-family: 'Noto Sans Mono', monospace;
+    font-size: 12px; letter-spacing: 0.3em; color: var(--ink-soft); text-transform: uppercase;
+  }
+  .hero-title{
+    font-family: 'Noto Serif TC', serif; font-weight: 900;
+    font-size: clamp(34px, 7vw, 52px); letter-spacing: 0.05em; margin: 8px 0 2px;
+  }
+  .hero-sub{ font-family:'Noto Serif TC', serif; font-size:16px; color:var(--ink-soft); }
+  .seal{
+    position:absolute; top:24px; right:6px; width:76px; height:76px;
+    background: var(--seal); color:#f4ead2; display:flex; align-items:center; justify-content:center;
+    font-family:'Noto Serif TC', serif; font-weight:700; font-size:19px; letter-spacing:0.15em;
+    writing-mode: vertical-rl; border-radius:4px; box-shadow:3px 3px 0 rgba(42,38,32,0.15); transform: rotate(2deg);
+  }
+
+  /* central root */
+  .root-box{
+    text-align:center;
+    margin: 0 auto 36px;
+    max-width: 460px;
+  }
+  .root-box .root{
+    display:inline-block;
+    font-family:'Noto Serif TC', serif; font-weight:900; font-size:24px;
+    background: var(--ink); color: var(--paper);
+    padding: 14px 28px; border-radius:3px;
+    box-shadow: 4px 4px 0 var(--gold);
+  }
+  .root-sub{ margin-top:10px; font-size:13.5px; color:var(--ink-soft); }
+
+  /* branch grid: 5 paragraphs as main branches */
+  .branches{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-bottom: 44px;
+  }
+  .branch{
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--bamboo);
+    padding: 18px 18px 16px;
+    position: relative;
+  }
+  .branch-num{
+    font-family:'Noto Sans Mono', monospace; font-size:11px; color:var(--bamboo); letter-spacing:0.1em;
+  }
+  .branch-title{
+    font-family:'Noto Serif TC', serif; font-weight:700; font-size:18px; margin: 4px 0 10px;
+  }
+  .branch-key{
+    font-family:'Noto Serif TC', serif; font-size:15px; background: rgba(255,255,255,0.4);
+    padding:8px 10px; border:1px dashed var(--rule); margin-bottom:8px;
+  }
+  .branch-fn{ font-size:13.5px; color:var(--ink-soft); }
+  .branch-fn b{ color:var(--seal); font-weight:700; }
+
+  /* section header */
+  .section-head{
+    display:flex; align-items:baseline; gap:12px; margin: 40px 0 16px;
+    border-left: 5px solid var(--gold); padding-left: 12px;
+  }
+  .section-title{ font-family:'Noto Serif TC', serif; font-weight:700; font-size:21px; }
+  .section-tag{ font-family:'Noto Sans Mono', monospace; font-size:12px; color:var(--ink-soft); }
+
+  /* rhetoric map */
+  .rhet-grid{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:14px; margin-bottom:10px;
+  }
+  .rhet-card{
+    background: rgba(255,255,255,0.35); border:1px solid var(--rule); padding:14px 16px;
+  }
+  .rhet-card .t{ font-family:'Noto Serif TC', serif; font-weight:700; color:var(--seal); font-size:15px; margin-bottom:6px;}
+  .rhet-card .e{ font-size:13.5px; color:var(--ink-soft); }
+
+  /* persuasion timeline (narrative flow, real sequence) */
+  .flow{
+    background: var(--paper-deep); border:1px solid var(--rule); padding: 20px 22px; margin-bottom: 10px;
+  }
+  .flow-step{ display:flex; gap:14px; margin-bottom:16px; align-items:flex-start; }
+  .flow-step:last-child{ margin-bottom:0; }
+  .flow-dot{
+    flex:0 0 auto; width:30px; height:30px; border-radius:50%;
+    background: var(--ink); color:var(--paper); display:flex; align-items:center; justify-content:center;
+    font-family:'Noto Sans Mono', monospace; font-size:13px; font-weight:700;
+  }
+  .flow-body .ft{ font-family:'Noto Serif TC', serif; font-weight:700; font-size:15.5px; margin-bottom:3px; }
+  .flow-body .fd{ font-size:13.5px; color:var(--ink-soft); }
+
+  .alert{
+    background: rgba(166,58,47,0.08); border:1px solid rgba(166,58,47,0.35);
+    padding: 16px 18px; margin: 26px 0; font-size:14.5px;
+  }
+  .alert-title{ font-family:'Noto Serif TC', serif; font-weight:700; color:var(--seal); margin-bottom:6px; }
+
+  .final-seal{
+    text-align:center; margin-top:50px; padding-top:22px; border-top:3px double var(--ink);
+  }
+  .final-seal .stamp{
+    display:inline-block; font-family:'Noto Serif TC', serif; font-weight:900; font-size:14px;
+    letter-spacing:0.28em; color:var(--seal); border:2px solid var(--seal); padding:9px 16px; transform: rotate(-1deg);
+  }
+
+  @media (max-width:520px){ .seal{display:none;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-eyebrow">古文十五篇 · 課文全篇心智圖</div>
+    <div class="hero-title">諫逐客書</div>
+    <div class="hero-sub">李斯｜論證脈絡・修辭手法・說服策略 總覽</div>
+    <div class="seal">李斯上書</div>
+  </div>
+
+  <div class="root-box">
+    <div class="root">諫逐客書 —— 一篇「以史為據、以物喻人」的說服文</div>
+    <div class="root-sub">核心論點：逐客乃「藉寇兵而齎盜糧」，資敵而損己，非跨海內、制諸侯之術</div>
+  </div>
+
+  <!-- five paragraph branches -->
+  <div class="branches">
+    <div class="branch">
+      <div class="branch-num">第一段</div>
+      <div class="branch-title">破題立場</div>
+      <div class="branch-key">臣聞吏議逐客，竊以為過矣</div>
+      <div class="branch-fn"><b>功能：</b>以「吏議」（非「王命」）定調，替秦王留轉圜餘地，也讓自己免於直斥君王之險。「竊」為謙詞，語氣委婉卻立場鮮明。</div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-num">第二段</div>
+      <div class="branch-title">歷史例證（人才之功）</div>
+      <div class="branch-key">此四君者，皆以客之功。由此觀之，客何負於秦哉！</div>
+      <div class="branch-fn"><b>論證法：</b>列舉繆公、孝公、惠王、昭王四代重用客卿而致霸業，屬<b>歸納論證</b>；以「四君用客而興」對比「今王逐客」，形成古今對比。</div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-num">第三段</div>
+      <div class="branch-title">類比論證（物與人對比）</div>
+      <div class="branch-key">所重者在乎色樂珠玉，而所輕者在乎人民也</div>
+      <div class="branch-fn"><b>論證法：</b>珍寶／美女／音樂皆「非秦所產而秦用之」，唯獨人才「非秦所生則逐之」——以<b>類比＋排比</b>凸顯秦王取物與取人標準之矛盾。</div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-num">第四段</div>
+      <div class="branch-title">正反論證（王者氣度）</div>
+      <div class="branch-key">泰山不讓土壤，河海不擇細流，王者不卻眾庶</div>
+      <div class="branch-fn"><b>論證法：</b>以自然界「泰山、河海」之<b>比喻論證</b>正面立論，再反面點出逐客等於「藉寇兵而齎盜糧」，資助敵國。</div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-num">第五段</div>
+      <div class="branch-title">總結歸納</div>
+      <div class="branch-key">內自虛而外樹怨於諸侯，求國無危，不可得也</div>
+      <div class="branch-fn"><b>功能：</b>總結全文，呼應首段「過矣」之判斷，指出逐客的必然後果——內虛外怨，首尾呼應，結構嚴謹。</div>
+    </div>
+  </div>
+
+  <!-- rhetoric techniques -->
+  <div class="section-head">
+    <span class="section-title">修辭與論證手法地圖</span>
+    <span class="section-tag">可與其他古文互見比較</span>
+  </div>
+  <div class="rhet-grid">
+    <div class="rhet-card">
+      <div class="t">舉例／歸納論證</div>
+      <div class="e">第二段列舉四位秦君用客而興的史實，由個別事例歸納出「客卿有功於秦」的通則。</div>
+    </div>
+    <div class="rhet-card">
+      <div class="t">類比論證</div>
+      <div class="e">第三段以「物不產於秦而秦用之」類比「人不產於秦而秦逐之」，凸顯邏輯矛盾。</div>
+    </div>
+    <div class="rhet-card">
+      <div class="t">排比／鋪陳</div>
+      <div class="e">「夜光之璧、犀象之器、鄭衛之女……」等句式鋪陳秦王所愛之物，堆疊出強烈說服力道。</div>
+    </div>
+    <div class="rhet-card">
+      <div class="t">比喻論證</div>
+      <div class="e">「泰山不讓土壤，河海不擇細流」以自然現象比喻王者應有的包容氣度。</div>
+    </div>
+    <div class="rhet-card">
+      <div class="t">正反對比</div>
+      <div class="e">「重色樂珠玉」與「輕人民」對比；「四君用客而霸」與「今王逐客而弱」對比。</div>
+    </div>
+  </div>
+
+  <!-- persuasion strategy flow -->
+  <div class="section-head">
+    <span class="section-title">說服策略脈絡（依論述順序）</span>
+    <span class="section-tag">呂世浩《敵我之間》觀點</span>
+  </div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-dot">1</div>
+      <div class="flow-body">
+        <div class="ft">措辭迴避鋒芒</div>
+        <div class="fd">以「吏議」而非「王命」開頭，將逐客令定調為「可討論」的宗室大臣提案，替秦王保留改變決策的臺階。</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">2</div>
+      <div class="flow-body">
+        <div class="ft">訴諸歷史威信</div>
+        <div class="fd">歷史是秦王決策時最畏懼也最信任的力量；列舉四君用客而霸的先例，暗示「逐客＝背離祖宗成法」。</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">3</div>
+      <div class="flow-body">
+        <div class="ft">暗示性語言操控矛盾</div>
+        <div class="fd">透過珍寶、美色、音樂等秦王已享用的「非秦之物」，讓秦王自己察覺「重物輕人」的邏輯矛盾，而非由李斯直接指責。</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">4</div>
+      <div class="flow-body">
+        <div class="ft">訴諸零和競爭的恐懼</div>
+        <div class="fd">指出逐客等同「藉寇兵而齎盜糧」，把人才與資源送給敵對六國，觸動秦王「統一天下」的核心渴望與焦慮。</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">5</div>
+      <div class="flow-body">
+        <div class="ft">總結呼應核心訴求</div>
+        <div class="fd">再次強調「逐客資敵、內虛外怨」，扣回秦王最在意的「统一天下、成帝業」目標，完成整篇說服閉環。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <div class="alert-title">💡 考點著重可如何補充</div>
+    目前的考點整理集中在「單句字音、通同字、字義、語法」等基礎知識層面，但從課文全篇與建中學習單的分析可以看出，未來命題若朝「文意理解」與「跨文本比較」深化，可補強以下方向：<br><br>
+    <b>① 論證手法辨識</b>——如「歸納論證」「類比論證」「比喻論證」的辨析與其他議論文（如〈六國論〉〈燭之武退秦師〉）比較，訓練「指出論證方式」的題型。<br>
+    <b>② 說服策略／寫作手法賞析</b>——如「開頭措辭的迂迴」「暗示性語言」「零和競爭訴求」，可設計為「作者為何如此安排段落／用詞」的素養題。<br>
+    <b>③ 歷史背景結合文本</b>——如「鄭國渠事件」與逐客令的因果關係，可能結合《史記·李斯列傳》《史記·河渠書》命題「文外背景理解」。<br>
+    <b>④ 段落結構與全文主旨</b>——首尾呼應（「過矣」→「不可得也」）、五段各自功能，宜熟記段落大意以應對「文章結構」選擇題。
+  </div>
+
+  <div class="final-seal">
+    <span class="stamp">以史為據 · 以物喻人 · 首尾呼應</span>
+  </div>
+
+</div>
+</body>
+</html>
